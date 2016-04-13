@@ -36,7 +36,8 @@
 #
 # Pull base image
 # ---------------
-FROM oraclelinux:latest
+#FROM oraclelinux:latest
+FROM registry.access.redhat.com/rhel:latest
 
 # Maintainer
 # ----------

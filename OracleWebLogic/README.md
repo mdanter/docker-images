@@ -6,6 +6,12 @@ The certification of WebLogic on Docker does not require the use of any file pre
 
 For more information on the certification, please check the [WebLogic on Docker Certification Whitepaper](http://www.oracle.com/technetwork/middleware/weblogic/overview/weblogic-server-docker-containers-2491959.pdf) and [WebLogic Blog](https://blogs.oracle.com/WebLogicServer/) for updates.
 
+## Before your run
+This project is modified to build things on the latest base image. To get the latest rhel base image, execute:
+`
+docker pull registry.access.redhat.com/rhel
+`
+
 ## How to build and run
 This project offers sample Dockerfiles for both WebLogic 12cR2 (12.2.1) and WebLogic 12c (12.1.3), and for each version it also provides at least one Dockerfile for the 'developer' distribution and a second Dockerfile for the 'generic' distribution, as well more if necessary. To assist in building the images, you can use the [buildDockerImage.sh](dockerfiles/buildDockerImage.sh) script. See below for instructions and usage.
 
