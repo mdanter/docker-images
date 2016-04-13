@@ -6,6 +6,23 @@ The certification of WebLogic on Docker does not require the use of any file pre
 
 For more information on the certification, please check the [WebLogic on Docker Certification Whitepaper](http://www.oracle.com/technetwork/middleware/weblogic/overview/weblogic-server-docker-containers-2491959.pdf) and [WebLogic Blog](https://blogs.oracle.com/WebLogicServer/) for updates.
 
+##TL;DR;
+```
+docker pull registry.access.redhat.com/rhel
+git clone https://github.com/oracle/docker-images.git
+cd docker-images/OracleWebLogic/dockerfiles/
+```
+**IMPORTANT**:Make sure that `docker-images/OracleWebLogic/dockerfiles/12.2.1` contains the weblogic zip files you need, the files with download extnesions contain the links to them.
+```
+sh buildDockerImage.sh -v 12.2.1 -g -s
+cd ../samples/1221-domain/
+docker build -t 1221-domain --build-arg ADMIN_PASSWORD=welcome1 .
+cd ../1221-appdeploy/
+docker build -t 1221-appdeploy .
+docker run -d --name=wlsadmin -p 8001:8001 1221-appdeploy
+```
+navigate to http://[YOUR DOCKER HOST'S IP]:8001/sample/
+
 ## Before your run
 This project is modified to build things on the latest base image. To get the latest rhel base image, execute:
 `
