@@ -9,7 +9,7 @@ For more information on the certification, please check the [WebLogic on Docker 
 ##TL;DR;
 ```
 docker pull registry.access.redhat.com/rhel
-git clone https://github.com/oracle/docker-images.git
+git clone https://github.com/mdanter/docker-images.git
 cd docker-images/OracleWebLogic/dockerfiles/12.2.1/
 ```
 **IMPORTANT**:Make sure that `docker-images/OracleWebLogic/dockerfiles/12.2.1` contains the weblogic zip files you need, the files with download extnesions contain the links to them.
