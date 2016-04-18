@@ -62,7 +62,7 @@ ADD $JAVA_PKG /usr/java/
 # Adjust file permissions, go to /u01 as user 'oracle' to proceed with WLS installation
 # ------------------------------------------------------------
 RUN chmod a+xr /u01 && \
-    useradd -b /u01 -m -s /bin/bash oracle && \
+    useradd -b /u01 -m -s /bin/bash oracle -u 123 && \
     echo oracle:oracle | chpasswd && \
     mv $(ls -1 -d /usr/java/*) $JAVA_HOME && \
     cd /u01 && $JAVA_HOME/bin/jar xf /u01/$FMW_PKG && cd - && \
@@ -70,7 +70,11 @@ RUN chmod a+xr /u01 && \
     chown oracle:oracle -R /u01 && \
     rm /u01/$FMW_JAR /u01/$FMW_PKG /u01/oraInst.loc /u01/install.file
 
-USER oracle
+ADD fix-permissions /fix-permissions
+
+RUN chmod +x /fix-permissions && /fix-permissions $ORACLE_HOME && rm -f ~/.wgetrc
+
+USER 123
 WORKDIR $ORACLE_HOME 
 
 # Define default command to start bash. 

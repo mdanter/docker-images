@@ -25,9 +25,8 @@ MAINTAINER Bruno Borges <bruno.borges@oracle.com>
 
 # WLS Configuration
 # ----------------------------------------------------------
-ARG ADMIN_PASSWORD
 ENV DOMAIN_NAME="base_domain" \
-    ADMIN_PASSWORD="$ADMIN_PASSWORD" \
+    ADMIN_PASSWORD="welcome1" \
     ADMIN_PORT="8001" \
     ADMIN_HOST="wlsadmin" \
     NM_PORT="5556" \
@@ -35,8 +34,10 @@ ENV DOMAIN_NAME="base_domain" \
     CLUSTER_NAME="DockerCluster" \
     PATH=$PATH:/u01/oracle/wlserver/common/bin:/u01/oracle/user_projects/domains/base_domain/bin:/u01/oracle
 
+RUN /fix-permissions $ORACLE_HOME && rm -f ~/.wgetrc
+
 # Add files required to build this image
-USER oracle
+USER 123 
 COPY container-scripts/* /u01/oracle/
 
 # Configuration of WLS Domain
@@ -52,6 +53,8 @@ EXPOSE $NM_PORT $ADMIN_PORT $MS_PORT
 
 # Final setup
 WORKDIR /u01/oracle
+
+RUN /fix-permissions $ORACLE_HOME && rm -f ~/.wgetrc
 
 # Define default command to start bash. 
 CMD ["startWebLogic.sh"]
