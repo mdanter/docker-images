@@ -1,5 +1,5 @@
 #!/bin/bash
 
-exec sh  appDeploy.sh
+exec sh /u01/oracle/appDeploy.sh
 
 exit 0
