@@ -3,7 +3,6 @@
 # Source code provided to STI is at ${HOME}/source
 LOCAL_SOURCE_DIR=${HOME}/source
 
-EAR_DEPLOY_DIR=/opt/ibm/wlp/usr/servers/defaultServer/apps/
 mkdir -p $LOCAL_SOURCE_DIR
 
 # Copy the source for compilation
