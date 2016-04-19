@@ -48,8 +48,6 @@ USER 123
 COPY container-scripts/* /u01/oracle/
 COPY ./.s2i/bin/ /usr/local/s2i
 
-RUN chmod 755 /usr/local/s2i/*
-
 # Configuration of WLS Domain
 RUN /u01/oracle/oracle_common/common/bin/wlst.sh -skipWLSModuleScanning /u01/oracle/create-wls-domain.py && \
     mkdir -p /u01/oracle/user_projects/domains/base_domain/servers/AdminServer/security && \
@@ -63,8 +61,8 @@ EXPOSE $NM_PORT $ADMIN_PORT $MS_PORT
 
 # Final setup
 WORKDIR /u01/oracle
-
-RUN /fix-permissions $ORACLE_HOME && rm -f ~/.wgetrc
-
+USER root
+RUN yum -y install tar && /fix-permissions $ORACLE_HOME && chmod 755 /usr/local/s2i/* && rm -f ~/.wgetrc
+USER 123
 # Define default command to start bash. 
 CMD ["startWebLogic.sh"]
