@@ -35,7 +35,7 @@ ENV DOMAIN_NAME="base_domain" \
     PATH=$PATH:/u01/oracle/wlserver/common/bin:/u01/oracle/user_projects/domains/base_domain/bin:/u01/oracle \
     APP_NAME="sample" \
     APP_PKG_FILE="sample.war" \
-    APP_PKG_LOCATION="/u01/oracle"
+    APP_PKG_LOCATION="/u01/oracle/source"
 
 LABEL io.k8s.description="Platform for Oracle WebLogic 12cR2" \
       io.k8s.display-name="Oracle WebLogic 12cR2" \
@@ -49,7 +49,7 @@ COPY container-scripts/* /u01/oracle/
 COPY ./.s2i/bin/ /usr/local/s2i
 
 # Configuration of WLS Domain
-RUN /u01/oracle/oracle_common/common/bin/wlst.sh -skipWLSModuleScanning /u01/oracle/create-wls-domain.py && \
+RUN mkdir -p $APP_PKG_LOCATION && /u01/oracle/oracle_common/common/bin/wlst.sh -skipWLSModuleScanning /u01/oracle/create-wls-domain.py && \
     mkdir -p /u01/oracle/user_projects/domains/base_domain/servers/AdminServer/security && \
     echo "username=weblogic" > /u01/oracle/user_projects/domains/base_domain/servers/AdminServer/security/boot.properties && \ 
     echo "password=$ADMIN_PASSWORD" >> /u01/oracle/user_projects/domains/base_domain/servers/AdminServer/security/boot.properties && \
